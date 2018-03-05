@@ -58,7 +58,7 @@ class Shielding:
             'hazdat' attribute, wrapped in the StrGuarded class.
 
         """
-        super().__setattr__('hazdat', StrGuarded(hazdat))
+        self.hazdat = StrGuarded(hazdat)
 
     def __getattribute__(self, name):
         """Block access to guarded internals.

@@ -15,7 +15,7 @@ class StrGuarded(ObjectProxy):
         self._self_str_once = super().__str__()
 
     def __getattribute__(self, name):
-        """Block access to guarded internals.
+        """Ensure that you can only access str_once once.
 
         :param name: The attribute name.
 
@@ -36,7 +36,7 @@ class StrGuarded(ObjectProxy):
 
     @property
     def str_once(self):
-        """Use this to access __str__, but only once."""
+        """Access self.__str__(), but only once."""
         return self._self_str_once
 
 
@@ -61,7 +61,7 @@ class Shielding:
         self.hazdat = StrGuarded(hazdat)
 
     def __getattribute__(self, name):
-        """Block access to guarded internals.
+        """Ensure that you can only access hazdat once.
 
         :param name: The attribute name.
 

@@ -6,13 +6,6 @@ from hazdat.shielding import StrGuarded
 
 class TestStrGuarded(TestCase):
 
-    def test_wrapped_object_access_denied(self):
-        wrap = StrGuarded('a')
-        with self.assertRaises(AttributeError) as error:
-            wrap.__wrapped__
-        expected = "'str' object has no attribute '__wrapped__'"
-        self.assertEqual(str(error.exception), expected)
-
     def test_wrapped_object_str_denied(self):
         wrap = StrGuarded('a')
         with self.assertRaises(AttributeError) as error:
@@ -21,7 +14,10 @@ class TestStrGuarded(TestCase):
         self.assertEqual(str(error.exception), expected)
 
     def test_private_str_once(self):
+        # It's not the end of the world if someone access _self_str_once
+        # directly
         wrap = StrGuarded(1)
+        self.assertEqual(wrap._self_str_once, '1')
         with self.assertRaises(AttributeError) as error:
             wrap._self_str_once
         expected = "'int' object has no attribute '_self_str_once'"
@@ -45,6 +41,9 @@ class TestShielding(TestCase):
 
     def test_get_once(self):
         hazard = Shielding(1)
+        # We should check that we can access other attributes
+        self.assertEqual(hazard.__class__, Shielding)
+
         success = hazard.hazdat
         self.assertIsInstance(success, StrGuarded)
         self.assertEqual(success, 1)
@@ -52,18 +51,4 @@ class TestShielding(TestCase):
         with self.assertRaises(AttributeError) as error:
             hazard.hazdat
         expected = 'hazdat'
-        self.assertEqual(str(error.exception), expected)
-
-    def test_cannot_set_hazdat(self):
-        hazard = Shielding(1)
-        with self.assertRaises(AttributeError) as error:
-            hazard.hazdat = 2
-        expected = "'Shielding' object attributes are read-only"
-        self.assertEqual(str(error.exception), expected)
-
-    def test_cannot_set_attribute_does_not_exist(self):
-        hazard = Shielding(1)
-        with self.assertRaises(AttributeError) as error:
-            hazard.nope = 2
-        expected = "'Shielding' object attributes are read-only"
         self.assertEqual(str(error.exception), expected)

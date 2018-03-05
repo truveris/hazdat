@@ -7,7 +7,8 @@ The HazDat Python library provides a class :code:`Shielding` that protects sensi
 Usage
 -------------
 
-:code:`hazdat.Shielding` prevents accessing the :code:`hazdat` attribute more than once:
+:code:`hazdat.Shielding` prevents accessing the :code:`hazdat` attribute more
+than once:
 
 .. code:: python
 
@@ -23,7 +24,8 @@ Usage
         raise AttributeError(msg) from None
     AttributeError: hazdat
 
-Also, to avoid unintentionally printing or logging, use :code:`shielded.hazdat.str_once` instead of :code:`str(shielded.hazdat)`.
+Also, to avoid unintentionally printing or logging, use
+:code:`shielded.hazdat.str_once` instead of :code:`str(shielded.hazdat)`.
 
 .. code:: python
 
@@ -45,7 +47,9 @@ Also, to avoid unintentionally printing or logging, use :code:`shielded.hazdat.s
 Notes
 -------------
 
-* HazDat doesn't prevent all access to hazardous data, it just tries to prevent *unintentional* access. You can still assign the hazardous data to a variable and use it with impunity... just don't, please.
+* HazDat doesn't prevent all access to hazardous data, it just tries to prevent
+  *unintentional* access. You can still assign the hazardous data to a variable
+  and use it with impunity... just don't, please.
 
 Running Tests
 -------------

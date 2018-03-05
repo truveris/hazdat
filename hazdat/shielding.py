@@ -14,20 +14,16 @@ class StrGuarded(ObjectProxy):
         super().__init__(wrapped)
         self._self_str_once = super().__str__()
 
-    @property
-    def __wrapped__(self):
-        """Block access to __wrapped__."""
-        raise AttributeError
-
     def __getattribute__(self, name):
         """Block access to guarded internals.
 
         :param name: The attribute name.
 
         """
+        result = super().__getattribute__(name)
         if name == '_self_str_once':
             del self._self_str_once
-        return super().__getattribute__(name)
+        return result
 
     def __dir__(self):
         """Return the list of attributes."""
@@ -41,9 +37,7 @@ class StrGuarded(ObjectProxy):
     @property
     def str_once(self):
         """Use this to access __str__, but only once."""
-        result = super().__getattribute__('_self_str_once')
-        del self._self_str_once
-        return result
+        return self._self_str_once
 
 
 class Shielding:
@@ -76,8 +70,3 @@ class Shielding:
         if name == 'hazdat':
             del self.hazdat
         return result
-
-    def __setattr__(self, name, value):
-        """Block setting of any attributes."""
-        msg = "'{}' object attributes are read-only"
-        raise AttributeError(msg.format(self.__class__.__name__))

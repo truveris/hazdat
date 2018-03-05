@@ -50,6 +50,8 @@ Notes
 * HazDat doesn't prevent all access to hazardous data, it just tries to prevent
   *unintentional* access. You can still assign the hazardous data to a variable
   and use it with impunity... just don't, please.
+* Don't expect HazDat to censor sensitive data in SQLAlchemy tracebacks. That
+  may be a feature in the future but for now it doesn't seem feasible.
 
 Running Tests
 -------------

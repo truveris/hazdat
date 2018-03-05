@@ -9,7 +9,7 @@ Usage
 
 :code:`hazdat.Shielding` prevents accessing the :code:`hazdat` attribute more than once:
 
-::
+.. code:: python
 
     >>> from hazdat import Shielding
     >>> password = Shielding('1234')
@@ -25,7 +25,7 @@ Usage
 
 Also, to avoid unintentionally printing or logging, use :code:`shielded.hazdat.str_once` instead of :code:`str(shielded.hazdat)`.
 
-::
+.. code:: python
 
     >>> print(Shielding('1234').hazdat)
     Traceback (most recent call last):

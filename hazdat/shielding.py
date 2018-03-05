@@ -55,7 +55,7 @@ class Shielding:
 
     """
 
-    __slots__ = '_hazdat'
+    __slots__ = 'hazdat'
 
     def __init__(self, hazdat):
         """Set the shielded object.
@@ -64,7 +64,7 @@ class Shielding:
             'hazdat' attribute, wrapped in the StrGuarded class.
 
         """
-        super().__setattr__('_hazdat', StrGuarded(hazdat))
+        super().__setattr__('hazdat', StrGuarded(hazdat))
 
     def __getattribute__(self, name):
         """Block access to guarded internals.
@@ -72,22 +72,12 @@ class Shielding:
         :param name: The attribute name.
 
         """
-        if name == '_hazdat':
-            del self._hazdat
-        return super().__getattribute__(name)
+        result = super().__getattribute__(name)
+        if name == 'hazdat':
+            del self.hazdat
+        return result
 
     def __setattr__(self, name, value):
         """Block setting of any attributes."""
         msg = "'{}' object attributes are read-only"
         raise AttributeError(msg.format(self.__class__.__name__))
-
-    @property
-    def hazdat(self):
-        """Use this to access the shielded object."""
-        try:
-            result = super().__getattribute__('_hazdat')
-        except AttributeError:
-            msg = "Attribute 'hazdat' accessed more than once"
-            raise AttributeError(msg) from None
-        del self._hazdat
-        return result

@@ -51,27 +51,13 @@ class TestShielding(TestCase):
 
         with self.assertRaises(AttributeError) as error:
             hazard.hazdat
-        expected = "Attribute 'hazdat' accessed more than once"
-        self.assertEqual(str(error.exception), expected)
-
-    def test_get_private_hazdat(self):
-        hazard = Shielding(1)
-        with self.assertRaises(AttributeError) as error:
-            hazard._hazdat
-        expected = '_hazdat'
+        expected = 'hazdat'
         self.assertEqual(str(error.exception), expected)
 
     def test_cannot_set_hazdat(self):
         hazard = Shielding(1)
         with self.assertRaises(AttributeError) as error:
             hazard.hazdat = 2
-        expected = "'Shielding' object attributes are read-only"
-        self.assertEqual(str(error.exception), expected)
-
-    def test_cannot_set_private_hazdat(self):
-        hazard = Shielding(1)
-        with self.assertRaises(AttributeError) as error:
-            hazard._hazdat = 2
         expected = "'Shielding' object attributes are read-only"
         self.assertEqual(str(error.exception), expected)
 

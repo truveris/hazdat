@@ -21,7 +21,7 @@ Usage
         return super().__getattribute__(name)
       File "hazdat/hazdat/shielding.py", line 91, in hazdat
         raise AttributeError(msg) from None
-    AttributeError: Attribute 'hazdat' accessed more than once
+    AttributeError: hazdat
 
 Also, to avoid unintentionally printing or logging, use :code:`shielded.hazdat.str_once` instead of :code:`str(shielded.hazdat)`.
 

@@ -1,0 +1,1 @@
+"""hazdat tests."""
